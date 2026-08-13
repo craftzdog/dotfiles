@@ -1,7 +1,0 @@
-[tools]
-bun = "latest"
-ghq = "latest"
-node = "latest"
-python = "latest"
-ruby = "latest"
-rust = "latest"
