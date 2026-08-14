@@ -1,0 +1,29 @@
+# Derived from "Solarized Dark - Patched" by an HSLuv lightness boost of 0.3
+# (L' = L + (100 - L) * 0.3), hue and saturation untouched — the same transform
+# as solarized-osaka.nvim's `vivid` style, so Ghostty matches Neovim.
+# Surfaces (palette 0, background, cursor-text, selection-background) are left
+# alone: brightening a surface lowers contrast instead of adding it.
+
+palette = 0=#002831
+palette = 1=#f86265
+palette = 2=#94b109
+palette = 3=#d49a0a
+palette = 4=#529ef9
+palette = 5=#f8579a
+palette = 6=#32b9aa
+palette = 7=#f0ebdc
+palette = 8=#6e8b95
+palette = 9=#fb5c41
+palette = 10=#6e8b95
+palette = 11=#7895a0
+palette = 12=#91a8aa
+palette = 13=#8987d3
+palette = 14=#9fb2b2
+palette = 15=#fdf7e7
+# background = #001e27
+background = #031219
+foreground = #91a8aa
+cursor-color = #91a8aa
+cursor-text = #002831
+selection-background = #002831
+selection-foreground = #9fb2b2
