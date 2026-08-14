@@ -28,4 +28,7 @@ images/
 .config/fish/functions/tide
 .config/fish/functions/tide.fish
 
+# Ghostty
+.config/ghostty/auto/
+
 .DS_Store
