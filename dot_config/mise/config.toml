@@ -1,0 +1,9 @@
+[tools]
+bun = "latest"
+ghq = "latest"
+python = "latest"
+ruby = "latest"
+rust = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
