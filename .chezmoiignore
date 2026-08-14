@@ -31,4 +31,8 @@ images/
 # Ghostty
 .config/ghostty/auto/
 
+# Lazygit
+.config/lazygit/github_pull_requests.json
+.config/lazygit/state.yml
+
 .DS_Store
