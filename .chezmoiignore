@@ -1,2 +1,31 @@
 README.md
 images/
+
+########
+# Fish
+.config/fish/config-local.fish
+
+.config/fish/fish_variables
+.config/fish/fish_variables*
+.config/fish/completions/
+
+# Plugins
+.config/fish/conf.d/_tide_init.fish
+.config/fish/conf.d/tide.fish
+.config/fish/conf.d/z.fish
+.config/fish/conf.d/fzf.fish
+.config/fish/conf.d/nvm.fish
+.config/fish/conf.d/fish-ssh-agent.fish
+.config/fish/conf.d/fish_frozen_key_bindings.fish
+.config/fish/conf.d/fish_frozen_theme.fish
+.config/fish/functions/_*
+.config/fish/functions/__*
+.config/fish/functions/bass.fish
+.config/fish/functions/fisher.fish
+.config/fish/functions/fish_prompt.fish
+.config/fish/functions/fish_mode_prompt.fish
+.config/fish/functions/fzf_configure_bindings.fish
+.config/fish/functions/tide
+.config/fish/functions/tide.fish
+
+.DS_Store
