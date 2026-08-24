@@ -19,6 +19,7 @@ alias lla "ll -A"
 alias g git
 alias claude-yolo "claude --dangerously-skip-permissions"
 alias pn pnpm
+alias cz chezmoi
 command -qv nvim && alias vim nvim
 
 set -gx EDITOR nvim
