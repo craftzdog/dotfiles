@@ -1,7 +1,6 @@
 README.md
 images/
 
-########
 # Fish
 .config/fish/config-local.fish
 
@@ -34,5 +33,8 @@ images/
 # Lazygit
 .config/lazygit/github_pull_requests.json
 .config/lazygit/state.yml
+
+# Tmux
+.config/tmux/plugins/
 
 .DS_Store
