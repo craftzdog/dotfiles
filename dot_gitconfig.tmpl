@@ -1,0 +1,52 @@
+[user]
+	email = {{ .email | quote }}
+	name = {{ .name | quote }}
+
+[github]
+	user = {{ .githubUser | quote }}
+
+[init]
+	defaultBranch = main
+
+[core]
+	excludesfile = ~/.gitignore
+	editor = nvim
+	ignorecase = false
+	pager = delta
+
+[push]
+	default = simple
+
+[pull]
+	rebase = false
+
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+	ui = auto
+
+[diff]
+	tool = nvimdiff
+
+[difftool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+	path =
+
+[mergetool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+
+[include]
+	path = ~/.config/git/aliases.gitconfig
+	path = ~/.config/git/ghq.gitconfig
+	path = ~/.config/git/delta.gitconfig
+	path = ~/.gitconfig.private
