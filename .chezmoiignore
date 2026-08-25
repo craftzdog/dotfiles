@@ -41,5 +41,6 @@ images/
 .config/nvim/lua/craftzdog/plugins/local.lua
 .config/nvim/nvim-pack-lock.json
 
+Brewfile
 .DS_Store
 Session.vim
