@@ -11,6 +11,7 @@ vim.pack.add({
 	{ src = gh("nvim-lualine/lualine.nvim") },
 	{ src = gh("b0o/incline.nvim") },
 	{ src = gh("esmuellert/codediff.nvim") },
+	{ src = gh("rachartier/tiny-cmdline.nvim") },
 	-- Editor
 	{ src = gh("stevearc/conform.nvim") },
 	{ src = gh("nvim-treesitter/nvim-treesitter") },

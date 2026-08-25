@@ -58,6 +58,12 @@ require("snacks").setup({
 	},
 })
 
+require("tiny-cmdline").setup({
+	position = {
+		y = "20%",
+	},
+})
+
 require("lualine").setup({
 	options = {
 		theme = "auto",
