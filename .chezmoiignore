@@ -37,4 +37,9 @@ images/
 # Tmux
 .config/tmux/plugins/
 
+# Neovim
+.config/nvim/lua/craftzdog/plugins/local.lua
+.config/nvim/nvim-pack-lock.json
+
 .DS_Store
+Session.vim
