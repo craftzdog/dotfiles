@@ -1,0 +1,6 @@
+{{- if eq .chezmoi.os "windows" -}}
+{{- $wingetfile := joinPath .chezmoi.sourceDir "winget.json" -}}
+# winget.json hash: {{ include "winget.json" | sha256sum }}
+
+winget import --import-file "{{ $wingetfile }}" --accept-package-agreements --accept-source-agreements --ignore-unavailable --no-upgrade
+{{- end -}}
