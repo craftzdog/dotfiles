@@ -29,6 +29,8 @@ brew "ffmpeg"
 brew "awscli"
 brew "heroku"
 
+brew "pnpm"
+
 # React Native
 brew "watchman"
 
