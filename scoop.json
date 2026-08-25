@@ -1,0 +1,23 @@
+{
+  "buckets": [
+    { "Name": "main", "Source": "https://github.com/ScoopInstaller/Main" }
+  ],
+  "apps": [
+    { "Name": "7zip", "Source": "main" },
+    { "Name": "aws", "Source": "main" },
+    { "Name": "cacert", "Source": "main" },
+    { "Name": "curl", "Source": "main" },
+    { "Name": "delta", "Source": "main" },
+    { "Name": "fd", "Source": "main" },
+    { "Name": "ffmpeg", "Source": "main" },
+    { "Name": "fzf", "Source": "main" },
+    { "Name": "gcc", "Source": "main" },
+    { "Name": "gzip", "Source": "main" },
+    { "Name": "jq", "Source": "main" },
+    { "Name": "mise", "Source": "main" },
+    { "Name": "neovim", "Source": "main" },
+    { "Name": "ripgrep", "Source": "main" },
+    { "Name": "sudo", "Source": "main" },
+    { "Name": "wget", "Source": "main" }
+  ]
+}

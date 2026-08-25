@@ -4,3 +4,5 @@ dot_config/nvim/nvim-pack-lock.json
 
 # Homebrew
 Brewfile.lock.json
+
+tmp

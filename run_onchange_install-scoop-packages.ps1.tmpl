@@ -1,0 +1,10 @@
+{{- if eq .chezmoi.os "windows" -}}
+{{- $scoopfile := joinPath .chezmoi.sourceDir "scoop.json" -}}
+# scoop.json hash: {{ include "scoop.json" | sha256sum }}
+
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+	Invoke-RestMethod get.scoop.sh | Invoke-Expression
+}
+
+scoop import "{{ $scoopfile }}"
+{{- end -}}

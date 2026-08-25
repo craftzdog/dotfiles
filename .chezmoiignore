@@ -43,5 +43,12 @@ images/
 
 Brewfile
 Brewfile.lock.json
+winget.json
+scoop.json
 .DS_Store
 Session.vim
+
+# PowerShell (Windows only)
+{{- if ne .chezmoi.os "windows" }}
+.config/powershell
+{{- end }}
