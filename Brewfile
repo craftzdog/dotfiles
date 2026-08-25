@@ -1,4 +1,3 @@
-tap "homebrew/bundle"
 tap "d-kuro/tap"
 tap "heroku/brew"
 
