@@ -42,5 +42,6 @@ images/
 .config/nvim/nvim-pack-lock.json
 
 Brewfile
+Brewfile.lock.json
 .DS_Store
 Session.vim
