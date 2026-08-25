@@ -47,3 +47,8 @@ cask "sublime-text"
 cask "zed"
 cask "claude-code@latest"
 cask "chatgpt"
+
+# Fonts
+cask "font-plemol-jp-nf"
+cask "font-blex-mono-nerd-font"
+cask "font-hack-nerd-font"
