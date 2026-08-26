@@ -52,16 +52,12 @@ end)
 
 -- Yank current file path
 keymap.set("n", "<leader>yf", function()
-	local path = vim.fn.expand("%:.") .. ":" .. vim.fn.line(".")
-	vim.fn.setreg("+", path)
-	vim.notify("Yanked: " .. path, vim.log.levels.INFO)
+	require("craftzdog.utils.editor").yank_relative_path_with_line()
 end, { desc = "Yank relative path with line number" })
 
 keymap.set("n", "<leader>yp", function()
-	local path = vim.fn.expand("%:p")
-	vim.fn.setreg("+", path)
-	vim.notify("Yanked: " .. path, vim.log.levels.INFO)
-end, { desc = "Yank absolute path" })
+	require("craftzdog.utils.editor").yank_absolute_path_with_line()
+end, { desc = "Yank absolute path with line number" })
 
 keymap.set("v", "<leader>cc", ":<C-u>lua require('craftzdog.utils.editor').copy_as_codeblock()<CR>")
 
