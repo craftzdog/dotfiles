@@ -169,4 +169,16 @@ function M.toggle_formatter()
 	end
 end
 
+function M.yank_relative_path_with_line()
+	local path = vim.fn.expand("%:.") .. "#L" .. vim.fn.line(".")
+	vim.fn.setreg("+", path)
+	vim.notify("Yanked: " .. path, vim.log.levels.INFO)
+end
+
+function M.yank_absolute_path_with_line()
+	local path = vim.fn.expand("%:p") .. "#L" .. vim.fn.line(".")
+	vim.fn.setreg("+", path)
+	vim.notify("Yanked: " .. path, vim.log.levels.INFO)
+end
+
 return M
