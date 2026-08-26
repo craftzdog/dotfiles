@@ -69,6 +69,23 @@ require("lualine").setup({
 		theme = "auto",
 		globalstatus = true,
 		disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
+		refresh = {
+			events = {
+				"WinEnter",
+				"BufEnter",
+				"BufWritePost",
+				"SessionLoadPost",
+				"FileChangedShellPost",
+				"VimResized",
+				"Filetype",
+				"CursorMoved",
+				"CursorMovedI",
+				"ModeChanged",
+				-- Macro
+				"RecordingEnter",
+				"RecordingLeave",
+			},
+		},
 	},
 	sections = {
 		lualine_a = { "mode" },
@@ -90,6 +107,7 @@ require("lualine").setup({
 			},
 		},
 		lualine_x = {
+			lualine_utils.macro_recording(),
 			{
 				"diagnostics",
 				symbols = {

@@ -224,4 +224,27 @@ function M.root_dir(opts)
 	}
 end
 
+--- Shows the register a macro is currently being recorded into.
+--- Pair with "RecordingEnter"/"RecordingLeave" in lualine's `options.refresh.events`
+--- so it appears and disappears without waiting for the refresh timer.
+---@param opts? {icon?:string, color?:table|fun():table}
+function M.macro_recording(opts)
+	opts = vim.tbl_extend("force", {
+		icon = "󰑋 ",
+		color = function()
+			return { fg = Snacks.util.color("DiagnosticError"), gui = "bold" }
+		end,
+	}, opts or {})
+
+	return {
+		function()
+			return opts.icon .. vim.fn.reg_recording()
+		end,
+		cond = function()
+			return vim.fn.reg_recording() ~= ""
+		end,
+		color = opts.color,
+	}
+end
+
 return M
