@@ -1,3 +1,4 @@
+{{- if eq .chezmoi.os "darwin" -}}
 {{- $brewfile := joinPath .chezmoi.sourceDir "Brewfile" -}}
 #!/bin/sh
 # Brewfile hash: {{ include "Brewfile" | sha256sum }}
@@ -8,7 +9,7 @@ if ! command -v brew >/dev/null 2>&1; then
 	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-for candidate in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+for candidate in /opt/homebrew/bin/brew /usr/local/bin/brew; do
 	if [ -x "$candidate" ]; then
 		eval "$("$candidate" shellenv)"
 		break
@@ -18,3 +19,4 @@ done
 brew trust --tap d-kuro/tap heroku/brew
 
 brew bundle --file="{{ $brewfile }}"
+{{- end -}}
