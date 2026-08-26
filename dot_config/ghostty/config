@@ -21,3 +21,6 @@ window-padding-x = 8
 window-padding-y = 8
 
 bell-features = no-system
+
+shell-integration-features = ssh-env,ssh-terminfo
+
