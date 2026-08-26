@@ -1,0 +1,7 @@
+fish
+build-essential
+fzf
+bat
+fd-find
+ripgrep
+eza
