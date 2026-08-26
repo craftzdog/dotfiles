@@ -1,9 +1,6 @@
 set -gx LANG 'en_US.UTF-8'
 set fish_greeting ""
 
-set -gx TERM xterm-256color
-#set -gx TERM tmux-256color
-
 set -gx XDG_CONFIG_HOME $HOME/.config
 
 # theme
