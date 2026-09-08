@@ -41,5 +41,4 @@ vim.lsp.enable({
 	"tailwindcss",
 	"glsl_analyzer",
 	"rust_analyzer",
-	"copilot",
 })
