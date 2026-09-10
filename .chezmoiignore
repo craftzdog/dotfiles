@@ -1,0 +1,56 @@
+README.md
+tmp
+images/
+
+# Fish
+.config/fish/config-local.fish
+
+.config/fish/fish_variables
+.config/fish/fish_variables*
+.config/fish/completions/
+
+# Plugins
+.config/fish/conf.d/_tide_init.fish
+.config/fish/conf.d/tide.fish
+.config/fish/conf.d/z.fish
+.config/fish/conf.d/fzf.fish
+.config/fish/conf.d/nvm.fish
+.config/fish/conf.d/fish-ssh-agent.fish
+.config/fish/conf.d/fish_frozen_key_bindings.fish
+.config/fish/conf.d/fish_frozen_theme.fish
+.config/fish/functions/_*
+.config/fish/functions/__*
+.config/fish/functions/bass.fish
+.config/fish/functions/fisher.fish
+.config/fish/functions/fish_prompt.fish
+.config/fish/functions/fish_mode_prompt.fish
+.config/fish/functions/fzf_configure_bindings.fish
+.config/fish/functions/tide
+.config/fish/functions/tide.fish
+
+# Ghostty
+.config/ghostty/auto/
+
+# Lazygit
+.config/lazygit/github_pull_requests.json
+.config/lazygit/state.yml
+
+# Tmux
+.config/tmux/plugins/
+
+# Neovim
+.config/nvim/lua/craftzdog/plugins/local.lua
+.config/nvim/nvim-pack-lock.json
+
+Brewfile
+Brewfile.lock.json
+winget.json
+scoop.json
+apt-packages.txt
+.DS_Store
+Session.vim
+
+# PowerShell (Windows only)
+{{- if ne .chezmoi.os "windows" }}
+.config/powershell
+{{- end }}

@@ -1,0 +1,10 @@
+{{- if and (eq .chezmoi.os "linux") (or (eq .chezmoi.osRelease.id "debian") (eq .chezmoi.osRelease.id "ubuntu")) -}}
+{{- $aptPackages := joinPath .chezmoi.sourceDir "apt-packages.txt" -}}
+#!/bin/sh
+# apt-packages.txt hash: {{ include "apt-packages.txt" | sha256sum }}
+
+set -e
+
+sudo apt update
+xargs -a "{{ $aptPackages }}" sudo apt install -y
+{{- end -}}
