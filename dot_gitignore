@@ -43,3 +43,6 @@ DerivedData
 
 # CocoaPods
 Pods/
+
+# Agents
+settings.local.json
