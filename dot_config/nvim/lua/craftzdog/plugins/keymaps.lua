@@ -162,6 +162,11 @@ map({
 		desc = "Lazygit",
 	},
 	{
+		";h",
+		Snacks.picker.git_diff,
+		desc = "Git Diff (Hunks)",
+	},
+	{
 		"]]",
 		function()
 			Snacks.words.jump(vim.v.count1)
