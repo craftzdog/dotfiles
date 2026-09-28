@@ -233,11 +233,35 @@ map({
 		desc = "Open file from blamed commit",
 	},
 	{
+		"<leader>gs",
+		function()
+			local gs = require("gitsigns")
+			if #(gs.get_hunks() or {}) > 0 then
+				gs.stage_buffer()
+			else
+				gs.reset_buffer_index()
+			end
+		end,
+		desc = "Toggle stage buffer",
+	},
+	{
+		"<leader>gh",
+		function()
+			require("gitsigns").stage_hunk()
+		end,
+		desc = "Toggle stage hunk",
+	},
+})
+
+-- MiniDiff
+map({
+	{
 		"<leader>gd",
 		function()
 			local MiniDiff = require("mini.diff")
 			MiniDiff.toggle_overlay()
 		end,
+		desc = "Toggle MiniDiff overlay",
 	},
 })
 
