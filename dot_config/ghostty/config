@@ -1,0 +1,26 @@
+theme = "Solarized Dark - Vivid"
+# theme = "Solarized Dark - Patched"
+
+desktop-notifications = true
+
+background-opacity = 0.85
+background-blur-radius = 20
+
+font-family = "PlemolJP Console NF"
+
+cursor-style = block
+cursor-style-blink = true
+
+#keybind = global:cmd+ctrl+shift+j=toggle_visibility
+
+macos-option-as-alt = left
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+
+window-padding-x = 8
+window-padding-y = 8
+
+bell-features = no-system
+
+shell-integration-features = ssh-env,ssh-terminfo
+
