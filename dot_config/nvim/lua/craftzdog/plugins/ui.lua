@@ -168,6 +168,9 @@ require("codediff").setup({
 	explorer = {
 		auto_open_on_cursor = true,
 		view_mode = "tree", -- "list" or "tree"
+		line_stats = {
+			enabled = true,
+		},
 	},
 	keymaps = {
 		view = {
