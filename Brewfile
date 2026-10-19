@@ -29,6 +29,7 @@ brew "awscli"
 brew "heroku"
 
 brew "pnpm"
+brew "apm"
 
 # React Native
 brew "watchman"
