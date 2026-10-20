@@ -1,0 +1,146 @@
+onboarding = false
+
+[theme]
+name = "solarized"
+
+[ui]
+pane_gaps = false
+hide_tab_bar_when_single_tab = true
+tab_bar_position = "bottom"
+copy_on_select = false
+# No left sidebar by default; toggle with prefix+b
+sidebar_start_collapsed = true
+sidebar_width = 20
+
+# Show Claude's session summary (its terminal title) instead of the agent name
+[ui.sidebar.agents.rows_by_agent]
+claude = [["state_icon", "machine", "workspace", "tab"], ["terminal_title_stripped"]]
+
+[ui.sound.agents]
+claude = "off"
+
+[terminal]
+new_cwd = "follow"
+
+[keys]
+# action key
+prefix = "ctrl+t"
+
+# Reload settings
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+detach = "prefix+d"
+rename_tab = "prefix+comma"
+close_tab = "prefix+&"
+copy_mode = "prefix+["
+last_pane = "prefix+;"
+
+# Pane navigation wraps around at the edges (see keys.command below)
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+
+# Workspace switching
+new_workspace = "prefix+shift+c"
+previous_workspace = ["ctrl+shift+[", "ctrl+{"]
+next_workspace = ["ctrl+shift+]", "ctrl+}"]
+
+# Splits
+split_vertical = ["prefix+|", "prefix+%", "prefix+backslash"]
+split_horizontal = ["prefix+minus", 'prefix+"', "prefix+_"]
+
+goto = "prefix+u"
+open_notification_target = "prefix+shift+o"
+
+# Open current directory
+[[keys.command]]
+key = "prefix+o"
+type = "shell"
+command = 'open "$HERDR_ACTIVE_PANE_CWD"'
+
+# Kill all other panes in the current tab
+[[keys.command]]
+key = "prefix+e"
+type = "shell"
+command = '''herdr pane list | jq -r --arg t "$HERDR_ACTIVE_TAB_ID" --arg p "$HERDR_ACTIVE_PANE_ID" '.result.panes[] | select(.tab_id == $t and .pane_id != $p) | .pane_id' | xargs -n1 herdr pane close'''
+
+# Display lazygit
+[[keys.command]]
+key = "prefix+g"
+type = "pane"
+command = 'cd "$HERDR_ACTIVE_PANE_CWD" && lazygit'
+
+# tmux-pain-control: pane resizing
+[[keys.command]]
+key = "prefix+shift+h"
+type = "shell"
+command = 'herdr pane resize --direction left --pane "$HERDR_ACTIVE_PANE_ID"'
+
+[[keys.command]]
+key = "prefix+shift+j"
+type = "shell"
+command = 'herdr pane resize --direction down --pane "$HERDR_ACTIVE_PANE_ID"'
+
+[[keys.command]]
+key = "prefix+shift+k"
+type = "shell"
+command = 'herdr pane resize --direction up --pane "$HERDR_ACTIVE_PANE_ID"'
+
+[[keys.command]]
+key = "prefix+shift+l"
+type = "shell"
+command = 'herdr pane resize --direction right --pane "$HERDR_ACTIVE_PANE_ID"'
+
+# Move the current workspace up/down
+[[keys.command]]
+key = "ctrl+shift+up"
+type = "shell"
+command = '"$HOME/bin/herdr-move-workspace" up'
+
+[[keys.command]]
+key = "ctrl+shift+down"
+type = "shell"
+command = '"$HOME/bin/herdr-move-workspace" down'
+
+# Pane navigation with wrap-around, like tmux
+[[keys.command]]
+key = "prefix+h"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" left'
+
+[[keys.command]]
+key = "ctrl+shift+h"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" left'
+
+[[keys.command]]
+key = "prefix+j"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" down'
+
+[[keys.command]]
+key = "ctrl+shift+j"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" down'
+
+[[keys.command]]
+key = "prefix+k"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" up'
+
+[[keys.command]]
+key = "ctrl+shift+k"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" up'
+
+[[keys.command]]
+key = "prefix+l"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" right'
+
+[[keys.command]]
+key = "ctrl+shift+l"
+type = "shell"
+command = '"$HOME/bin/herdr-focus-pane" right'
