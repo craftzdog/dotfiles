@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+# Move herdr pane focus like focus_pane_*, but wrap around at the edges like tmux:
+# herdr-focus-pane left|right|up|down
+import json
+import os
+import socket
+import subprocess
+import sys
+
+direction = sys.argv[1] if len(sys.argv) > 1 else ""
+if direction not in ("left", "right", "up", "down"):
+    sys.exit("usage: herdr-focus-pane left|right|up|down")
+
+
+def herdr(*args):
+    return json.loads(subprocess.run(["herdr", *args], capture_output=True, text=True, check=True).stdout)
+
+
+def focus(pane_id):
+    s = socket.socket(socket.AF_UNIX)
+    s.connect(os.environ.get("HERDR_SOCKET_PATH") or os.path.expanduser("~/.config/herdr/herdr.sock"))
+    s.sendall((json.dumps({"id": "herdr-focus-pane", "method": "pane.focus", "params": {"pane_id": pane_id}}) + "\n").encode())
+    s.recv(65536)
+
+
+target = ["--pane", os.environ["HERDR_ACTIVE_PANE_ID"]] if os.environ.get("HERDR_ACTIVE_PANE_ID") else ["--current"]
+neighbor = herdr("pane", "neighbor", "--direction", direction, *target)["result"]["neighbor"]
+layout = neighbor["layout"]
+current_id = neighbor["pane_id"]
+
+# neighbor_pane_id is missing when there is nothing in that direction
+if neighbor.get("neighbor_pane_id"):
+    focus(neighbor["neighbor_pane_id"])
+    sys.exit()
+
+panes = {p["pane_id"]: p["rect"] for p in layout["panes"]}
+cur = panes[current_id]
+vertical = direction in ("up", "down")
+
+
+def overlap(r):
+    # Shared span on the axis perpendicular to the movement
+    if vertical:
+        return min(cur["x"] + cur["width"], r["x"] + r["width"]) - max(cur["x"], r["x"])
+    return min(cur["y"] + cur["height"], r["y"] + r["height"]) - max(cur["y"], r["y"])
+
+
+def edge(r):
+    # Wrapping up lands on the bottom-most pane, left on the right-most, and so on
+    if direction == "up":
+        return r["y"] + r["height"]
+    if direction == "down":
+        return -r["y"]
+    if direction == "left":
+        return r["x"] + r["width"]
+    return -r["x"]
+
+
+def closeness(r):
+    # Prefer the pane lined up with the current one's top/left edge
+    return -abs(r["x"] - cur["x"]) if vertical else -abs(r["y"] - cur["y"])
+
+
+candidates = [(edge(r), overlap(r), closeness(r), pid) for pid, r in panes.items() if pid != current_id and overlap(r) > 0]
+if candidates:
+    focus(max(candidates)[3])
