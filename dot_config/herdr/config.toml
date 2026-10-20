@@ -33,6 +33,9 @@ resize_mode = "prefix+shift+r"
 detach = "prefix+d"
 rename_tab = "prefix+comma"
 close_tab = "prefix+&"
+# Moving window
+move_tab_previous = "ctrl+shift+left"
+move_tab_next = "ctrl+shift+right"
 copy_mode = "prefix+["
 last_pane = "prefix+;"
 
@@ -43,7 +46,6 @@ focus_pane_up = ""
 focus_pane_right = ""
 
 # Workspace switching
-new_workspace = "prefix+shift+c"
 previous_workspace = ["ctrl+shift+[", "ctrl+{"]
 next_workspace = ["ctrl+shift+]", "ctrl+}"]
 
