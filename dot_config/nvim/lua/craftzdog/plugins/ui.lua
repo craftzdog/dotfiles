@@ -5,18 +5,6 @@ local lazygit_utils = require("craftzdog.utils.lazygit")
 require("solarized-osaka").setup({
 	style = "vivid",
 	transparent = true,
-	-- styles = {
-	--   sidebars = "transparent",
-	--   floats = "transparent",
-	-- },
-	sidebars = {
-		"qf",
-		"vista_kind",
-		"terminal",
-		"spectre_panel",
-		"startuptime",
-		"Outline",
-	},
 })
 vim.cmd([[colorscheme solarized-osaka]])
 
