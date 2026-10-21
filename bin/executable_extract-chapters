@@ -1,0 +1,19 @@
+#!/usr/bin/env fish
+
+function process_video
+    set INPUT $argv[1]
+
+    if test -f $INPUT
+        ffprobe -i $INPUT -print_format json -show_chapters | \
+            jq -r '.chapters | map({ hour: (.start_time | tonumber / 60 / 60 | floor), min: (.start_time | tonumber % 3600 / 60 | floor), sec: (.start_time | tonumber % 60), title: .tags.title }) | .[] | (if .hour > 0 then (.hour+100|tostring[1:]) + ":" else "" end) + (.min+100|tostring[1:]) + ":" + (.sec+100|tostring[1:]) + " " + .title'
+    else
+        echo "Error: File does not exist."
+    end
+end
+
+# Check if the user provided a file path
+if test (count $argv) -eq 1
+    process_video $argv[1]
+else
+    echo "Usage: script_name <file_path>"
+end
