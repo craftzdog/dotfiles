@@ -14,38 +14,49 @@ Check out my app called [Inkdrop](https://www.inkdrop.app/)
 
 ## Contents
 
-- vim (Neovim) config
+Managed with [chezmoi](https://www.chezmoi.io/).
+
+- Neovim config
+- [herdr](https://herdr.dev/) config (terminal workspace manager for AI agents)
 - tmux config
-- git config
+- Ghostty config
+- git and lazygit config
 - fish config
 - PowerShell config
+- Homebrew, apt, Scoop and winget package lists
 
 ## Neovim setup
 
 ### Requirements
 
-- Neovim >= **0.9.0** (needs to be built with **LuaJIT**)
-- Git >= **2.19.0** (for partial clones support)
-- [LazyVim](https://www.lazyvim.org/)
-- a [Nerd Font](https://www.nerdfonts.com/)(v3.0 or greater) **_(optional, but needed to display some icons)_**
-- [lazygit](https://github.com/jesseduffield/lazygit) **_(optional)_**
-- a **C** compiler for `nvim-treesitter`. See [here](https://github.com/nvim-treesitter/nvim-treesitter#requirements)
-- for [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) **_(optional)_**
-  - **live grep**: [ripgrep](https://github.com/BurntSushi/ripgrep)
-  - **find files**: [fd](https://github.com/sharkdp/fd)
-- a terminal that support true color and *undercurl*:
-  - [kitty](https://github.com/kovidgoyal/kitty) **_(Linux & Macos)_**
-  - [wezterm](https://github.com/wez/wezterm) **_(Linux, Macos & Windows)_**
-  - [alacritty](https://github.com/alacritty/alacritty) **_(Linux, Macos & Windows)_**
-  - [iterm2](https://iterm2.com/) **_(Macos)_**
+- Neovim >= **0.12** (plugins are managed with the built-in `vim.pack`)
+- Git
+- [lazygit](https://github.com/jesseduffield/lazygit) **_(optional)_**
+- [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter) and a **C** compiler for `nvim-treesitter`
+- for the [snacks.nvim](https://github.com/folke/snacks.nvim) picker:
+  - **live grep**: [ripgrep](https://github.com/BurntSushi/ripgrep)
+  - **find files**: [fd](https://github.com/sharkdp/fd)
+- a terminal that supports true color and _undercurl_, such as [Ghostty](https://ghostty.org/)
 - [Solarized Osaka](https://github.com/craftzdog/solarized-osaka.nvim)
+
+## Terminal setup
+
+- [Ghostty](https://ghostty.org/) - Terminal emulator
+- [herdr](https://herdr.dev/) - Workspace manager for running AI coding agents side by side, with tmux-style keybindings (prefix `ctrl+t`)
+- [tmux](https://github.com/tmux/tmux) - Terminal multiplexer
+
+### Fonts
+
+Installed as Homebrew casks from the `Brewfile`:
+
+- [PlemolJP](https://github.com/yuru7/PlemolJP) (`PlemolJP Console NF`) - A mix of IBM Plex Mono and IBM Plex Sans JP
+- [BlexMono Nerd Font](https://github.com/ryanoasis/nerd-fonts)
 
 ## Shell setup (macOS & Linux)
 
 - [Fish shell](https://fishshell.com/)
 - [Fisher](https://github.com/jorgebucaran/fisher) - Plugin manager
 - [Tide](https://github.com/IlanCosman/tide) - Shell theme
-- [Nerd fonts](https://github.com/ryanoasis/nerd-fonts) - Patched fonts for development-use. I use [PlemolJP](https://github.com/yuru7/PlemolJP) and BlexMono.
 - [z for fish](https://github.com/jethrokuan/z) - Directory jumping
 - [Eza](https://github.com/eza-community/eza) - `ls` replacement
 - [ghq](https://github.com/x-motemen/ghq) - Local Git repository organizer
