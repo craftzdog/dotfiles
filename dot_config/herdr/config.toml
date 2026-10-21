@@ -5,7 +5,7 @@ name = "solarized"
 
 [ui]
 pane_gaps = false
-wrap_pane_focus = true
+# wrap_pane_focus = true
 hide_tab_bar_when_single_tab = true
 tab_bar_position = "bottom"
 copy_on_select = false
