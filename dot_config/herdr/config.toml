@@ -5,12 +5,14 @@ name = "solarized"
 
 [ui]
 pane_gaps = false
+wrap_pane_focus = true
 hide_tab_bar_when_single_tab = true
 tab_bar_position = "bottom"
 copy_on_select = false
 # No left sidebar by default; toggle with prefix+b
 sidebar_start_collapsed = true
 sidebar_width = 20
+window_title = "{workspace}: {terminal_title}"
 
 # Show Claude's session summary (its terminal title) instead of the agent name
 [ui.sidebar.agents.rows_by_agent]
@@ -39,11 +41,10 @@ move_tab_next = "ctrl+shift+right"
 copy_mode = "prefix+["
 last_pane = "prefix+;"
 
-# Pane navigation wraps around at the edges (see keys.command below)
-focus_pane_left = ""
-focus_pane_down = ""
-focus_pane_up = ""
-focus_pane_right = ""
+focus_pane_left = ["prefix+h", "ctrl+shift+h"]
+focus_pane_down = ["prefix+j", "ctrl+shift+j"]
+focus_pane_up = ["prefix+k", "ctrl+shift+k"]
+focus_pane_right = ["prefix+l", "ctrl+shift+l"]
 
 # Workspace switching
 previous_workspace = ["ctrl+shift+[", "ctrl+{"]
@@ -105,44 +106,3 @@ command = '"$HOME/bin/herdr-move-workspace" up'
 key = "ctrl+shift+down"
 type = "shell"
 command = '"$HOME/bin/herdr-move-workspace" down'
-
-# Pane navigation with wrap-around, like tmux
-[[keys.command]]
-key = "prefix+h"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" left'
-
-[[keys.command]]
-key = "ctrl+shift+h"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" left'
-
-[[keys.command]]
-key = "prefix+j"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" down'
-
-[[keys.command]]
-key = "ctrl+shift+j"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" down'
-
-[[keys.command]]
-key = "prefix+k"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" up'
-
-[[keys.command]]
-key = "ctrl+shift+k"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" up'
-
-[[keys.command]]
-key = "prefix+l"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" right'
-
-[[keys.command]]
-key = "ctrl+shift+l"
-type = "shell"
-command = '"$HOME/bin/herdr-focus-pane" right'
