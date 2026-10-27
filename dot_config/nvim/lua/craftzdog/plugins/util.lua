@@ -1,6 +1,5 @@
 -- File explorer
 require("oil").setup({
-	default_file_explorer = true,
 	columns = {
 		"icon",
 		{ "permissions", highlight = "Type" },
@@ -15,7 +14,6 @@ require("oil").setup({
 		show_hidden = true,
 	},
 	float = {
-		padding = 8,
 		border = "rounded",
 		win_options = {
 			winblend = 0,
