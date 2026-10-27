@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+"""Extract captions from a Final Cut Pro FCPXML export and write them as an SRT file.
+
+Pulls from two possible sources in the FCPXML, merging whatever is present:
+
+  1. Native closed captions: <caption> elements (FCP's real Captions feature,
+     role like "iTT?captionFormat=ITT.en"). Text comes from the nested
+     <text>/<text-style> content.
+  2. Generator/title "caption" clips: <title> clips using a Motion template
+     whose name/uid matches --match (default: "Message Studio", e.g. the
+     FCPX Message Studio iMessage-bubble titles). Text comes from the title's
+     `name` attribute, which FCP sets to "<text> - <effect name>"; the
+     " - <effect name>" suffix is stripped.
+
+Both sources nest their clips inside a host clip (asset-clip/ref-clip/gap)
+rather than placing them directly on the timeline, so each entry's absolute
+timeline position is resolved by walking up through host offset/start pairs.
+
+Usage:
+    fcpx-captions-to-srt INPUT.fcpxml [-o OUTPUT.srt] [-m "Message Studio"]
+                          [--no-captions] [--no-titles]
+                          [--list-effects] [--list-caption-roles]
+
+INPUT may be a .fcpxml file or a .fcpxmld bundle (the Info.fcpxml inside it
+is used automatically).
+"""
+
+import argparse
+import sys
+from fractions import Fraction
+from pathlib import Path
+import xml.etree.ElementTree as ET
+
+
+def parse_time(s: str | None) -> Fraction:
+    if not s or s == "0s":
+        return Fraction(0)
+    s = s[:-1]  # strip trailing "s"
+    if "/" in s:
+        num, den = s.split("/")
+        return Fraction(int(num), int(den))
+    return Fraction(s)
+
+
+def fmt_srt_timestamp(t: Fraction) -> str:
+    total_ms = round(t * 1000)
+    ms = total_ms % 1000
+    total_s = total_ms // 1000
+    s = total_s % 60
+    total_m = total_s // 60
+    m = total_m % 60
+    h = total_m // 60
+    return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+
+
+def resolve_fcpxml_path(input_path: Path) -> Path:
+    if input_path.is_dir():
+        candidate = input_path / "Info.fcpxml"
+        if candidate.exists():
+            return candidate
+        sys.exit(f"error: {input_path} is a directory but has no Info.fcpxml inside")
+    return input_path
+
+
+def resolve_absolute_offset(clip_el, parent_map) -> Fraction:
+    """Walk up from a clip to the sequence, converting its offset into the
+    top-level spine's (i.e. the sequence's) absolute coordinate system.
+    Connected clips (titles, captions) are nested inside a host clip whose
+    own offset/start define the coordinate transform at each level."""
+    t = parse_time(clip_el.get("offset"))
+    cur = clip_el
+    while True:
+        parent = parent_map.get(cur)
+        if parent is None or parent.tag in ("sequence", "project", "event", "library", "fcpxml"):
+            return t
+        if parent.tag == "spine":
+            cur = parent
+            continue
+        p_offset = parse_time(parent.get("offset"))
+        p_start = parse_time(parent.get("start"))
+        t = p_offset + (t - p_start)
+        cur = parent
+
+
+def extract_caption_text(caption_el) -> str:
+    lines = []
+    for text_el in caption_el.findall("text"):
+        styles = text_el.findall("text-style")
+        if styles:
+            line = "".join(s.text or "" for s in styles)
+        else:
+            line = text_el.text or ""
+        lines.append(line)
+    text = "\n".join(lines) if lines else (caption_el.get("name") or "")
+    return text.strip()
+
+
+def collect_native_captions(root, parent_map, role_filter: str | None):
+    entries = []
+    roles_seen = set()
+    for cap in root.iter("caption"):
+        role = cap.get("role")
+        roles_seen.add(role)
+        if role_filter and role != role_filter:
+            continue
+        text = extract_caption_text(cap)
+        if not text:
+            continue
+        dur = parse_time(cap.get("duration"))
+        offset = resolve_absolute_offset(cap, parent_map)
+        entries.append((offset, dur, text))
+    return entries, roles_seen
+
+
+def collect_title_matches(root, parent_map, match: str):
+    match_lower = match.lower()
+    matched_effects = {}
+    for eff in root.iter("effect"):
+        name = eff.get("name") or ""
+        uid = eff.get("uid") or ""
+        if match_lower in name.lower() or match_lower in uid.lower():
+            matched_effects[eff.get("id")] = name
+
+    entries = []
+    for title in root.iter("title"):
+        eff_id = title.get("ref")
+        if eff_id not in matched_effects:
+            continue
+        effect_name = matched_effects[eff_id]
+        raw_name = title.get("name") or ""
+        suffix = f" - {effect_name}"
+        text = raw_name[: -len(suffix)] if raw_name.endswith(suffix) else raw_name
+        dur = parse_time(title.get("duration"))
+        offset = resolve_absolute_offset(title, parent_map)
+        entries.append((offset, dur, text))
+    return entries, matched_effects
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("input", type=Path, help="Path to .fcpxml file or .fcpxmld bundle")
+    ap.add_argument("-o", "--output", type=Path, default=None, help="Output .srt path (default: alongside input)")
+    ap.add_argument("-m", "--match", default="Message Studio",
+                     help='Case-insensitive substring to match against generator title effect name/uid '
+                          '(default: "Message Studio")')
+    ap.add_argument("--no-captions", action="store_true", help="Skip native <caption> closed captions")
+    ap.add_argument("--no-titles", action="store_true", help="Skip generator-title captions (the --match source)")
+    ap.add_argument("--caption-role", default=None,
+                     help="Only include native captions with this exact role (see --list-caption-roles); "
+                          "default includes all roles")
+    ap.add_argument("--list-effects", action="store_true",
+                     help="List all title-generator effects found in the file and exit")
+    ap.add_argument("--list-caption-roles", action="store_true",
+                     help="List all native <caption> role values found in the file and exit")
+    args = ap.parse_args()
+
+    xml_path = resolve_fcpxml_path(args.input)
+    if not xml_path.exists():
+        sys.exit(f"error: {xml_path} not found")
+
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+    parent_map = {c: p for p in root.iter() for c in p}
+
+    if args.list_effects:
+        seen = set()
+        for eff in root.iter("effect"):
+            key = (eff.get("id"), eff.get("name"))
+            if key in seen:
+                continue
+            seen.add(key)
+            print(f"{eff.get('id')}\t{eff.get('name')}\t{eff.get('uid', '')}")
+        return
+
+    if args.list_caption_roles:
+        roles = sorted({cap.get("role") for cap in root.iter("caption")} - {None})
+        if not roles:
+            print("no <caption> elements found in this file")
+        for r in roles:
+            print(r)
+        return
+
+    entries = []
+    sources_used = []
+
+    if not args.no_captions:
+        cap_entries, roles_seen = collect_native_captions(root, parent_map, args.caption_role)
+        if cap_entries:
+            entries.extend(cap_entries)
+            sources_used.append(f"{len(cap_entries)} native caption(s)")
+        if len(roles_seen) > 1 and not args.caption_role:
+            print(f"note: multiple caption roles found ({sorted(r for r in roles_seen if r)}); "
+                  f"including all. Use --caption-role to filter to one.", file=sys.stderr)
+
+    if not args.no_titles:
+        title_entries, matched_effects = collect_title_matches(root, parent_map, args.match)
+        if title_entries:
+            entries.extend(title_entries)
+            sources_used.append(f"{len(title_entries)} title caption(s) matching \"{args.match}\" "
+                                 f"({', '.join(sorted(set(matched_effects.values())))})")
+
+    if not entries:
+        sys.exit("error: no captions found (native <caption> elements or title matches). "
+                 "Try --list-effects / --list-caption-roles to see what's in the file.")
+
+    entries.sort(key=lambda e: e[0])
+
+    overlaps = sum(
+        1 for i in range(len(entries) - 1)
+        if entries[i][0] + entries[i][1] > entries[i + 1][0]
+    )
+
+    out_path = args.output or args.input.with_suffix(".srt")
+
+    lines = []
+    for i, (offset, dur, text) in enumerate(entries, start=1):
+        lines.append(str(i))
+        lines.append(f"{fmt_srt_timestamp(offset)} --> {fmt_srt_timestamp(offset + dur)}")
+        lines.append(text)
+        lines.append("")
+
+    out_path.write_text("\n".join(lines), encoding="utf-8")
+
+    print(f"Wrote {len(entries)} captions to {out_path}  [{'; '.join(sources_used)}]")
+    if overlaps:
+        print(f"warning: {overlaps} caption(s) overlap in time with the next one (multi-lane conversation?)")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,31 @@
+{
+	"$schema": "https://aka.ms/winget-packages.schema.1.0.json",
+	"WinGetVersion": "1.0.0",
+	"Sources": [
+		{
+			"SourceDetails": {
+				"Name": "winget",
+				"Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Argument": "https://cdn.winget.microsoft.com/cache",
+				"Type": "Microsoft.PreIndexed.Package"
+			},
+			"Packages": [
+				{ "Id": "Git.Git" },
+				{ "Id": "Microsoft.PowerShell" },
+				{ "Id": "Microsoft.WindowsTerminal" },
+				{ "Id": "JanDeDobbeleer.OhMyPosh" },
+				{ "Id": "AgileBits.1Password" },
+				{ "Id": "AgileBits.1Password.CLI" },
+				{ "Id": "SublimeHQ.SublimeText.4" },
+				{ "Id": "Google.Chrome.EXE" },
+				{ "Id": "Microsoft.WSL" },
+				{ "Id": "ezwinports.make" },
+				{ "Id": "Rustlang.Rustup" },
+				{ "Id": "Symless.Synergy" },
+				{ "Id": "Microsoft.WindowsSDK.10.0.26100" },
+				{ "Id": "Microsoft.PowerToys" },
+				{ "Id": "Certum.SmartSignSimplySignDesktop" }
+			]
+		}
+	]
+}
