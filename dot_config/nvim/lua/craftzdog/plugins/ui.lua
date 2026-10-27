@@ -6,7 +6,7 @@ require("solarized-osaka").setup({
 	style = "vivid",
 	transparent = true,
 })
-vim.cmd([[colorscheme solarized-osaka]])
+vim.cmd.colorscheme("solarized-osaka")
 
 require("mini.icons").setup()
 require("mini.icons").mock_nvim_web_devicons()

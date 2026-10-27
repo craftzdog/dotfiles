@@ -105,7 +105,7 @@ require("vim._core.ui2").enable({
 			verbose = "pager",
 			wildlist = "cmd",
 			wmsg = "msg",
-			typed_cmd = "msg",
+			typed_cmd = "cmd",
 		},
 		cmd = { height = 0.5 },
 		dialog = { height = 0.5 },
