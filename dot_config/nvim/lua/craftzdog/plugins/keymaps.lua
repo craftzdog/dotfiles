@@ -98,13 +98,6 @@ map({
 		desc = "Code Action",
 		mode = { "n", "x" },
 	},
-	{
-		"<leader>cc",
-		vim.lsp.codelens.run,
-		desc = "Run Codelens",
-		mode = { "n", "x" },
-	},
-	{ "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens" },
 	{ "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
 	{
 		"<leader>f",
