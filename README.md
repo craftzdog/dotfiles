@@ -1,5 +1,3 @@
-![fish screenshot](./images/screenshot-1.png)
-
 ![nvim screenshot](./images/screenshot-neovim.png)
 
 # Takuya's dotfiles
