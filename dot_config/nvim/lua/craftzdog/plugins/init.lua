@@ -15,6 +15,7 @@ vim.pack.add({
 	-- Editor
 	{ src = gh("stevearc/conform.nvim") },
 	{ src = gh("nvim-treesitter/nvim-treesitter") },
+	{ src = gh("mks-h/treesitter-autoinstall.nvim") },
 	{ src = gh("nvim-mini/mini.pairs") },
 	{ src = gh("craftzdog/mini.diff"), version = "feat/grouping" },
 	{ src = gh("saghen/blink.cmp"), version = vim.version.range("^1") },

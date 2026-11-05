@@ -41,7 +41,22 @@ local ensure_installed = {
 	"yaml",
 }
 
-TS.install(ensure_installed)
+local function install_parsers()
+	TS.install(ensure_installed)
+end
+
+-- Wait for mason-tool-installer to finish before compiling parsers
+if vim.fn.executable("tree-sitter") == 1 then
+	install_parsers()
+else
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "MasonToolsUpdateCompleted",
+		once = true,
+		callback = install_parsers,
+	})
+end
+
+require("treesitter-autoinstall").setup()
 
 -- MDX has no parser of its own; render it with the Markdown one.
 vim.filetype.add({
@@ -58,10 +73,6 @@ vim.api.nvim_create_autocmd("FileType", {
 		local lang = vim.treesitter.language.get_lang(ev.match)
 		if not lang or not vim.treesitter.language.add(lang) then
 			return
-		end
-
-		if not vim.treesitter.highlighter.active[ev.buf] then
-			vim.treesitter.start(ev.buf, lang)
 		end
 
 		vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
