@@ -1,6 +1,5 @@
 local TS = require("nvim-treesitter")
 
--- HACK: Sets up gcc as treesitter compiler if `cl.exe` (Visual Studio Build Tools) is not installed
 if vim.fn.has("win32") == 1 and vim.fn.executable("cl.exe") == 0 then
 	vim.env.CC = "gcc"
 end
