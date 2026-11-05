@@ -1,5 +1,9 @@
 local TS = require("nvim-treesitter")
 
+if vim.fn.has("win32") == 1 and vim.fn.executable("cl.exe") == 0 then
+	vim.env.CC = "gcc"
+end
+
 local ensure_installed = {
 	"astro",
 	"bash",
