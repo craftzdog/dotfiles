@@ -1,0 +1,6 @@
+# For Vlogs
+
+macos-titlebar-style = hidden
+custom-shader = shaders/contrast.glsl
+custom-shader = shaders/glitchy.glsl
+custom-shader = shaders/crt.glsl

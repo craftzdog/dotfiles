@@ -1,5 +1,4 @@
 theme = "Solarized Dark - Vivid"
-# theme = "Solarized Dark - Patched"
 
 desktop-notifications = true
 
@@ -24,3 +23,4 @@ bell-features = no-system
 
 shell-integration-features = ssh-env,ssh-terminfo
 
+# config-file = config_vlog
