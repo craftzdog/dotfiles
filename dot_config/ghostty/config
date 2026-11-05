@@ -3,7 +3,7 @@ theme = "Solarized Dark - Vivid"
 
 desktop-notifications = true
 
-background-opacity = 0.85
+background-opacity = 0.8
 background-blur-radius = 20
 
 font-family = "PlemolJP Console NF"
