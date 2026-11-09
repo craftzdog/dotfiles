@@ -16,7 +16,6 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory
 
 # Env
 $env:GIT_SSH = "C:\Windows\system32\OpenSSH\ssh.exe"
-$env:INKDROP_MCP_RUNNER = "npx.cmd"
 
 # Alias
 Set-Alias -Name vim -Value nvim
