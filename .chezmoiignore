@@ -54,3 +54,8 @@ Session.vim
 {{- if ne .chezmoi.os "windows" }}
 .config/powershell
 {{- end }}
+
+# npm install script (Unix only)
+{{- if eq .chezmoi.os "windows" }}
+install-npm-packages.sh
+{{- end }}
