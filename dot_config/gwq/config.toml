@@ -1,5 +1,5 @@
 [worktree]
-basedir = "~/Developments/gwq"
+basedir = "~/Developments/repos"
 auto_mkdir = true
 
 [naming]
