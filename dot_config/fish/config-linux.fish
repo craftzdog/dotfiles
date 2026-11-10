@@ -4,3 +4,7 @@ if type -q eza
 end
 
 alias fd fdfind
+
+if type -q batcat
+    alias bat batcat
+end
