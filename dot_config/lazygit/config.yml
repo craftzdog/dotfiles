@@ -1,9 +1,9 @@
 customCommands:
   - key: "C"
-    command: "git cz"
-    description: "commit with commitizen"
+    command: "claude_commit"
+    description: "commit with Claude Code"
     context: "files"
-    loadingText: "opening commitizen commit tool"
+    loadingText: "committing with Claude Code"
     output: terminal
 gui:
   mouseEvents: false
