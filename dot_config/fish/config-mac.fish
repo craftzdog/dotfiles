@@ -22,8 +22,9 @@ set -xg REACT_EDITOR subl
 set ANDROID_JAVA_HOME /Applications/Android\ Studio.app/Contents/jbr/Contents/Home
 if test -f $ANDROID_JAVA_HOME/bin/java
     set -gx JAVA_HOME $ANDROID_JAVA_HOME
-else if test -f /usr/libexec/java_home
-    set -gx JAVA_HOME (/usr/libexec/java_home -v 17)
+else if test -x /usr/libexec/java_home
+    set -l java_home (/usr/libexec/java_home -v 17 2>/dev/null)
+    and set -gx JAVA_HOME $java_home
 end
 
 # inkdrop
