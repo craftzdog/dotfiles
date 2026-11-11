@@ -11,7 +11,6 @@ images/
 
 # Plugins
 .config/fish/conf.d/_tide_init.fish
-.config/fish/conf.d/tide.fish
 .config/fish/conf.d/z.fish
 .config/fish/conf.d/fzf.fish
 .config/fish/conf.d/nvm.fish
