@@ -1,0 +1,19 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+# fish_plugins hash: {{ include "dot_config/fish/fish_plugins" | sha256sum }}
+
+set -e
+
+# chezmoi may run before Homebrew's bin directory is on PATH (fresh machine).
+PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+if ! command -v fish >/dev/null 2>&1; then
+	echo "fish not found; skipping fisher plugin install" >&2
+	exit 0
+fi
+
+fish -c '
+functions -q fisher; or curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+fisher update
+'
+{{- end -}}
