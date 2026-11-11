@@ -1,6 +1,7 @@
 [tools]
 bun = "latest"
 ghq = "latest"
+pre-commit = "latest"
 python = "latest"
 ruby = "latest"
 rust = "latest"
