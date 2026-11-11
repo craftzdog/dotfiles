@@ -50,6 +50,7 @@ cask "zed"
 cask "claude-code@latest"
 cask "chatgpt"
 cask "cleanshot"
+cask "raindropio"
 
 # Fonts
 cask "font-plemol-jp-nf"
