@@ -48,3 +48,39 @@ rex.bind("ctrl+t>shift+'", "pane.split", { direction = "down" })
 rex.bind("ctrl+t>shift+-", "pane.split", { direction = "down" })
 
 rex.bind("ctrl+t>u", "session.switch")
+
+-- New session (workspace) on prefix+shift+n
+rex.bind("ctrl+t>shift+n", "session.new")
+
+-- Next / previous tab on prefix+n / prefix+p
+rex.bind("ctrl+t>n", "client.tab.next")
+rex.bind("ctrl+t>p", "client.tab.previous")
+
+-- lazygit in a floating pane on prefix+g, opened in the focused pane's directory
+local function focused_pane_directory(block_id)
+  local process = rex.block.call("com.superlogical.terminal", "process", { block_id = block_id })
+  if process == nil then return nil end
+  local running = process.foreground or process.child
+  return running and running.cwd
+end
+
+rex.action{
+  name  = "lazygit_popup",
+  title = "Open lazygit in a Floating Pane",
+  run   = function(ctx, args)
+    local _, err = rex.session.new_layer{
+      bounds = { 0.05, 0.05, 0.9, 0.9 },
+      focus  = true,
+      layout = rex.layout.block{
+        flavor  = "com.superlogical.terminal.shell",
+        options = { command = { "lazygit" }, cwd = focused_pane_directory(ctx.block_id) },
+      },
+    }
+    if err ~= nil then error(err, 0) end
+  end,
+}
+
+rex.bind("ctrl+t>g", "lazygit_popup")
+
+-- New tab on prefix+c
+rex.bind("ctrl+t>c", "client.tab.new")
