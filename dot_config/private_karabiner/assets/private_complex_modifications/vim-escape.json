@@ -1,0 +1,25 @@
+{
+  "title": "Vim style escape key mapping",
+  "rules": [
+    {
+      "description": "Map ctrl + [ to escape",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "open_bracket",
+            "modifiers": {
+              "mandatory": ["control"],
+              "optional": []
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

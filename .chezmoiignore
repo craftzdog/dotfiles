@@ -31,6 +31,9 @@ images/
 # Ghostty
 .config/ghostty/auto/
 
+# Karabiner
+.config/karabiner/automatic_backups/
+
 # Lazygit
 .config/lazygit/github_pull_requests.json
 .config/lazygit/state.yml
@@ -53,6 +56,11 @@ Session.vim
 # PowerShell (Windows only)
 {{- if ne .chezmoi.os "windows" }}
 .config/powershell
+{{- end }}
+
+# Karabiner-Elements (macOS only)
+{{- if ne .chezmoi.os "darwin" }}
+.config/karabiner
 {{- end }}
 
 # npm install script (Unix only)
