@@ -51,6 +51,7 @@ cask "claude-code@latest"
 cask "chatgpt"
 cask "cleanshot"
 cask "raindropio"
+cask "android-studio"
 
 # Fonts
 cask "font-plemol-jp-nf"
