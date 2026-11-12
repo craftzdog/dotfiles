@@ -37,3 +37,4 @@ rex.bind("ctrl+t>shift+'", "pane.split", { direction = "down" })
 rex.bind("ctrl+t>shift+-", "pane.split", { direction = "down" })
 
 rex.bind("ctrl+t>e", "pane.close_others")
+rex.bind("ctrl+t>z", "pane.zoom")
