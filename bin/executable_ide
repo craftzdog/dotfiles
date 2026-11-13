@@ -8,6 +8,17 @@ if [ "$HERDR_ENV" = "1" ]; then
   exit
 fi
 
+if [ -n "$REX_BLOCK" ] && [ -z "$TMUX" ]; then
+  # rex: split anchors default to $REX_BLOCK, not the focused pane, so pass each pane explicitly
+  rex focus left -s "$REX_SESSION"
+  pane=$(rex window ls -s "$REX_SESSION" --json | jq -r --arg caller "$REX_BLOCK" \
+    '.windows[] | select([.. | .block_id? // empty] | index($caller)) | .focused_block_id')
+  pane=$(rex split -s "$REX_SESSION" -b "$pane" --split=below --ratio 30 --json | jq -r '.block_ids[0]')
+  pane=$(rex split -s "$REX_SESSION" -b "$pane" --split=right --ratio 66 --json | jq -r '.block_ids[0]')
+  rex split -s "$REX_SESSION" -b "$pane" --split=right --ratio 50 >/dev/null
+  exit
+fi
+
 tmux select-pane -L
 tmux split-window -v -l 20%
 tmux split-window -h -l 66%
