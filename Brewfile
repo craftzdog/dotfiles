@@ -23,12 +23,13 @@ brew "fzf"
 brew "btop"
 brew "tree"
 brew "wget"
-brew "mise"
 brew "sqlite"
 brew "ffmpeg"
 brew "awscli"
 brew "heroku"
 
+# Package managers
+brew "mise"
 brew "pnpm"
 brew "apm"
 
@@ -38,22 +39,29 @@ brew "watchman"
 cask "1password"
 cask "1password-cli"
 cask "ghostty"
-cask "google-chrome"
 cask "karabiner-elements"
 cask "keyboard-maestro"
-cask "zen"
-cask "numi"
 cask "raycast"
 cask "transmit"
-cask "sublime-text"
-cask "zed"
 cask "claude-code@latest"
 cask "chatgpt"
 cask "cleanshot"
 cask "raindropio"
+
+# Browsers
+cask "google-chrome"
+cask "zen"
+
+# Editors
+cask "sublime-text"
+cask "zed"
 cask "android-studio"
 
 # Fonts
 cask "font-plemol-jp-nf"
 cask "font-blex-mono-nerd-font"
 cask "font-hack-nerd-font"
+
+# Other tools
+cask "imageoptim"
+cask "numi"
