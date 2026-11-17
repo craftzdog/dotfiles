@@ -25,6 +25,9 @@ require("snacks").setup({
 			files = { hidden = true },
 			grep = { hidden = true },
 		},
+		layouts = {
+			default = { layout = { width = 0.9, height = 0.9 } },
+		},
 	},
 	notifier = { enabled = true },
 	statuscolumn = { enabled = true },
