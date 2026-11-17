@@ -30,7 +30,6 @@ brew "heroku"
 
 # Package managers
 brew "mise"
-brew "pnpm"
 brew "apm"
 
 # React Native
