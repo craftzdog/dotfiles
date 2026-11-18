@@ -17,6 +17,9 @@ rex.bind("ctrl+t>,", "client.tab.rename")
 rex.bind("ctrl+t>shift+7", "client.tab.close")
 rex.bind("ctrl+shift+left", "client.tab.move", { direction = "backward" })
 rex.bind("ctrl+shift+right", "client.tab.move", { direction = "forward" })
+for tab_number = 1, 9 do
+  rex.bind("ctrl+t>" .. tab_number, "client.tab.goto", { index = tab_number })
+end
 
 -- Pane focus
 rex.bind("ctrl+t>h", "pane.focus", { direction = "left" })
